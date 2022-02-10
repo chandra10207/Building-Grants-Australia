@@ -1,8 +1,9 @@
 <?php
-
+if ( ! is_admin() ) {
 include_once( get_stylesheet_directory() .'/inc/house-and-land-package.php');
 include_once( get_stylesheet_directory() .'/inc/product-single.php');
-
+include_once( get_stylesheet_directory() .'/inc/single-design.php');
+}
 add_filter( 'media_library_infinite_scrolling', '__return_true' );
 
 function csp_b5f_increase_upload( $bytes )
@@ -13,7 +14,7 @@ function csp_b5f_increase_upload( $bytes )
 add_filter( 'upload_size_limit', 'csp_b5f_increase_upload' );
 add_filter( 'tribe_community_events_max_file_size_allowed', 'csp_b5f_increase_upload' );
 
-add_action( 'wp_enqueue_scripts', 'porto_child_css', 1001 );
+add_action( 'wp_enqueue_scripts', 'porto_child_css', 1002 );
 
 // Load CSS
 function porto_child_css() {
