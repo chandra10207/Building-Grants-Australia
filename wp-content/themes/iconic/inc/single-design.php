@@ -40,7 +40,7 @@ $gallery_ids_array = $product->get_gallery_image_ids();
 // print_r($image);die;
 
 								?>
-							<div class="item border">
+							<div class="nd-banner-slider-item item border">
 								<img src="<?php echo $image; ?> " >
 							</div>
 							<?php
@@ -110,60 +110,58 @@ foreach ($floor_plans_childrens as $post_id)
  {
  	$count++;
 	 $activeClass='';
+	 $floor_plan_pdf = '';
  	if((int)$count == 1)
  		{
  			$activeClass =  "show";
  		}
 
 if($post_id){
-        // $bedroom = get_field('bedrooms', $post_id);
-        // $bathroom = get_field('bathrooms', $post_id);
-        // $garage = get_field('garage', $post_id);
-        // $ground_floor_area = get_field('ground_floor_area', $post_id);
-        // $first_floor_area = get_field('first_floor_area', $post_id);
-        // $alfresco_area = get_field('alfresco_area', $post_id);
-        // $balcony_area_sqm = get_field('balcony_area_sqm', $post_id);
-        // $porch_area = get_field('porch_area', $post_id);
-        // $garage_area = get_field('garage_area', $post_id);
-        // $private_living_space_area = get_field('private_living_space_area', $post_id);
-        // $outdoor_leisure_area = get_field('outdoor_leisure_area', $post_id);
-        // $patio_area = get_field('patio_area', $post_id);
-        // $alfresco_granny_area = get_field('alfresco_granny_area', $post_id);
-        // $granny_flat_area = get_field('granny_flat_area', $post_id);
-        // $loft_area = get_field('loft_area', $post_id);
-        // $carport_area = get_field('carport_area', $post_id);
-        // $total_home_area = get_field('total_home_area', $post_id);
-        // $floor_plan_pdf = get_field('floor_plan_pdf', $post_id);
-        // $featured_img_url = get_the_post_thumbnail_url($post_id,'full'); 
 
+    // $house_size = get_the_terms( $product_id , 'pa_house-size-sqm');
+    // $house_size[0]->name
 
+        $bedroom = get_the_terms( $post_id, 'pa_bedrooms');
+        $bathroom = get_the_terms($post_id, 'pa_bathrooms');
+        $garage = get_the_terms($post_id, 'pa_garage');
+        $living_rooms = get_the_terms($post_id, 'pa_living-rooms');
+        $stories = get_the_terms($post_id, 'pa_stories');
+        $max_block_depth_m = get_the_terms($post_id, 'pa_max-block-depth-m');
+        $max_block_width_m = get_the_terms($post_id, 'pa_max-block-width-m');
+        $max_house_size_sqm = get_the_terms($post_id, 'pa_max-house-size-sqm');
+        $min_block_depth_m = get_the_terms($post_id, 'pa_min-block-depth-m');
+        $min_block_width_m = get_the_terms($post_id, 'pa_min-block-width-m');
+        $min_house_size_sqm = get_the_terms($post_id, 'pa_min-house-size-sqm');
+        $other_features = get_the_terms($post_id, 'pa_other-features');
+        $property_status = get_the_terms($post_id, 'pa_property-status');
+        $state = get_the_terms($post_id, 'pa_state');
+        $stories = get_the_terms($post_id, 'pa_stories');
+        $suburb = get_the_terms($post_id, 'pa_suburb');
+        $total_block_area_sqm = get_the_terms($post_id, 'pa_total-block-area-sqm', $post_id);
 
-        $bedroom = 2;
-        $bathroom = 2;
-        $garage = 1;
-        $ground_floor_area = 11;
-        $first_floor_area = 33;
-        $alfresco_area = 44;
-        $balcony_area_sqm = 44;
-        $porch_area = 444;
-        $garage_area = 444;
-        $private_living_space_area = 767;
-        $outdoor_leisure_area = 77;
-        $patio_area = 7777;
-        $alfresco_granny_area = 777;
-        $granny_flat_area = 888;
-        $loft_area = 99;
-        $carport_area = 22;
-        $total_home_area = 45;
-        $floor_plan_pdf ="/pdf/";
-        $featured_img_url ='http://localhost/grant/wp-content/uploads/2022/02/TheLuna244-1.jpg'; 
+				$floor_plan_image_id = get_post_meta($post_id,'wpcf-floor-plan-image');
+        // $floor_plan_image = get_the_post_thumbnail_url((int)$floor_plan_image_id[0],'full'); 
+
+				// $image = wp_get_attachment_image_url( get_post_thumbnail_id( $slide ), 'large' );
+
+				$floor_plan_image = wp_get_attachment_image_url( (int)$floor_plan_image_id[0], 'large' );
+
+				$floor_plan_pdf_id = get_post_meta($post_id,'wpcf-floor-plan-pdf');
+				if($floor_plan_pdf_id){
+				$floor_plan_pdf = wp_get_attachment_url( (int)$floor_plan_pdf_id[0] );
+				// echo '<pre>';
+				// var_dump($floor_plan_pdf);
+
+				}
+				// echo get_the_title( $post_id );
+
 
     }
 
  $data .= '<div id="floorplan-'.$activeClass."-".$count.'" class="accordion-item">';
     $data .= '<h2 class="accordion-header" id="panelsStayOpen-heading'.$post_id.'">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse'.$post_id.'" aria-expanded="true" aria-controls="#panelsStayOpen-collapse'.$post_id.'">
-        The Luna '.$post_id.'
+        '.get_the_title( $post_id ).'
       </button>
     </h2>';
    
@@ -174,67 +172,70 @@ if($post_id){
     $data .= '<div class="lead mb-3 nd-specification-number">';
     $data .= '<ul class="list list-unstyled mt-2 short-desc overflow-hidden">';
     if($bedroom){
-        $data .= '<li><i class="fas fa-bed fa-xs ml-1"></i> <span class="ml-1">'.$bedroom.' <span class="nd-property-lbl-details bed">Beds</span></span></li>';
+        $data .= '<li><i class="fas fa-bed fa-xs ml-1"></i> <span class="ml-1">'.$bedroom[0]->name.' <span class="nd-property-lbl-details bed">Beds</span></span></li>';
     }
     if($bathroom){
-        $data .= '<li><i class="fas fa-shower fa-xs ml-1"></i> <span class="ml-1">'.$bathroom.' <span class="nd-property-lbl-details bath">Baths</span></span></li>';
+        $data .= '<li><i class="fas fa-shower fa-xs ml-1"></i> <span class="ml-1">'.$bathroom[0]->name.' <span class="nd-property-lbl-details bath">Baths</span></span></li>';
     }
     if($garage){
-        $data .= '<li><i class="fas fa-car fa-xs ml-1"></i> <span class="ml-1">'.$garage.' <span class="nd-property-lbl-details garage">Garage</span></span></li>';
+        $data .= '<li><i class="fas fa-car fa-xs ml-1"></i> <span class="ml-1">'.$garage[0]->name.' <span class="nd-property-lbl-details garage">Garage</span></span></li>';
     }
     $data .= '</ul>';
     $data .= '</div>';
     
     $data .= '<div class="table-responsive"><table><tbody>';
-    if($ground_floor_area){
-        $data .= '<tr><td>Ground Floor</td><td>'.$ground_floor_area.' Sqm</td></tr>';
+    if($living_rooms){
+        $data .= '<tr><td>Ground Floor</td><td>'.$living_rooms[0]->name.' Sqm</td></tr>';
     }
-    if($first_floor_area){
-        $data .= '<tr><td>First Floor </td><td>'.$first_floor_area.' Sqm</td></tr>';
+    if($stories){
+        $data .= '<tr><td>First Floor </td><td>'.$stories[0]->name.' Sqm</td></tr>';
     }
-    if($loft_area){
-        $data .= '<tr><td>Loft </td><td>'.$loft_area.' Sqm</td></tr>';
+    if($min_block_depth_m){
+        $data .= '<tr><td>Balcony</td><td>'.$min_block_depth_m[0]->name.' Sqm</td></tr>';
     }
-    if($outdoor_leisure_area){
-        $data .= '<tr><td>Outdoor Leisure</td><td>'.$outdoor_leisure_area.' Sqm</td></tr>';
+    if($max_block_depth_m){
+        $data .= '<tr><td>Loft </td><td>'.$max_block_depth_m.' Sqm</td></tr>';
     }
-    if($alfresco_area){
-        $data .= '<tr><td>Alfresco</td><td>'.$alfresco_area.' Sqm</td></tr>';
+    if($min_block_width_m){
+        $data .= '<tr><td>Porch</td><td>'.$min_block_width_m[0]->name.' Sqm</td></tr>';
     }
-    if($balcony_area_sqm){
-        $data .= '<tr><td>Balcony</td><td>'.$balcony_area_sqm.' Sqm</td></tr>';
+    if($max_block_width_m){
+        $data .= '<tr><td>Outdoor Leisure</td><td>'.$max_block_width_m[0]->name.' Sqm</td></tr>';
     }
-    if($porch_area){
-        $data .= '<tr><td>Porch</td><td>'.$porch_area.' Sqm</td></tr>';
+    if($total_block_area_sqm){
+        $data .= '<tr><td>Carport</td><td>'.$total_block_area_sqm[0]->name.' Sqm</td></tr>';
     }
-    if($garage_area){
-        $data .= '<tr><td>Garage</td><td>'.$garage_area.' Sqm</td></tr>';
+    if($min_house_size_sqm){
+        $data .= '<tr><td>Garage</td><td>'.$min_house_size_sqm[0]->name.' Sqm</td></tr>';
     }
-    if($private_living_space_area){
-        $data .= '<tr><td>Private Living Space</td><td>'.$private_living_space_area.' Sqm</td></tr>';
+    if($max_house_size_sqm){
+        $data .= '<tr><td>Alfresco</td><td>'.$max_house_size_sqm[0]->name.' Sqm</td></tr>';
     }
-    if($patio_area){
-        $data .= '<tr><td>Patio</td><td>'.$patio_area.' Sqm</td></tr>';
+    if($property_status){
+        $data .= '<tr><td>Patio</td><td>'.$property_status[0]->name.' Sqm</td></tr>';
     }
-    if($alfresco_granny_area){
-        $data .= '<tr><td>Alfresco Granny</td><td>'.$alfresco_granny_area.' Sqm</td></tr>';
+    if($state){
+        $data .= '<tr><td>Alfresco Granny</td><td>'.$state[0]->name.' Sqm</td></tr>';
     }
-    if($granny_flat_area){
-        $data .= '<tr><td>Granny Flat</td><td>'.$granny_flat_area.' Sqm</td></tr>';
+    if($suburb){
+        $data .= '<tr><td>Granny Flat</td><td>'.$suburb[0]->name.' Sqm</td></tr>';
     }
-    if($carport_area){
-        $data .= '<tr><td>Carport</td><td>'.$carport_area.' Sqm</td></tr>';
+    if($total_block_area_sqm){
+        $data .= '<tr><td>Total Home Area</td><td>'.$total_block_area_sqm[0]->name.' Sqm</td></tr>';
     }
-    if($total_home_area){
-        $data .= '<tr><td>Total Home Area</td><td>'.$total_home_area.' Sqm</td></tr>';
+
+    if($other_features){
+        $data .= '<tr><td>Private Living Space</td><td>'.$other_features[0]->name.' Sqm</td></tr>';
     }
+
+
     
     $data .= '</tbody></table></div>';
 	
 	$data .= '<div class="nd-button-container overflow-hidden py-3 py-xl-5">';
 
     if($floor_plan_pdf){
-	$data .= '<a class="vc_btn3 vc_btn3-shape-default btn btn-modern btn-md btn-secondary mr-2" href="/wp-content/uploads/designs_pdf/'.$floor_plan_pdf.'" title="" target="_blank">Download Floor Plan</a>';
+	$data .= '<a class="vc_btn3 vc_btn3-shape-default btn btn-modern btn-md btn-secondary mr-2" href="'.$floor_plan_pdf.'" title="" target="_blank">Download Floor Plan</a>';
 	}
 	$data .= '<a class="vc_btn3 vc_btn3-shape-default btn btn-modern btn-md btn-primary my-3" href="/designs/inclusions/" title="">View Inclusions</a>';
 	
@@ -246,8 +247,8 @@ if($post_id){
     $data .= '<h4 class="nd-specification-lbl">Floor Plan</h4>';
     
      $data .= '<div class="facade img-container mb-2">
-									<a data-fancybox="gallery" href="'.$featured_img_url.'">
-										<img class="img-fluid" src="'.$featured_img_url.'" ></a>	</div>';
+									<a data-fancybox="gallery" href="'.$floor_plan_image.'">
+										<img class="img-fluid" src="'.$floor_plan_image.'" ></a>	</div>';
     
     
     $data .= '</div>';
@@ -306,24 +307,24 @@ function nd_get_design_specifications ( $atts = '' ) {
 	}
     
     if($post_id){
-        $bedroom = get_field('bedrooms', $post_id);
-        $bathroom = get_field('bathrooms', $post_id);
-        $garage = get_field('garage', $post_id);
-        $ground_floor_area = get_field('ground_floor_area', $post_id);
-        $first_floor_area = get_field('first_floor_area', $post_id);
-        $alfresco_area = get_field('alfresco_area', $post_id);
-        $balcony_area_sqm = get_field('balcony_area_sqm', $post_id);
-        $porch_area = get_field('porch_area', $post_id);
-        $garage_area = get_field('garage_area', $post_id);
-        $private_living_space_area = get_field('private_living_space_area', $post_id);
-        $outdoor_leisure_area = get_field('outdoor_leisure_area', $post_id);
-        $patio_area = get_field('patio_area', $post_id);
-        $alfresco_granny_area = get_field('alfresco_granny_area', $post_id);
-        $granny_flat_area = get_field('granny_flat_area', $post_id);
-        $loft_area = get_field('loft_area', $post_id);
-        $carport_area = get_field('carport_area', $post_id);
-        $total_home_area = get_field('total_home_area', $post_id);
-        $floor_plan_pdf = get_field('floor_plan_pdf', $post_id);
+        $bedroom = get_the_terms('bedrooms', $post_id);
+        $bathroom = get_the_terms('bathrooms', $post_id);
+        $garage = get_the_terms('garage', $post_id);
+        $ground_floor_area = get_the_terms('ground_floor_area', $post_id);
+        $first_floor_area = get_the_terms('first_floor_area', $post_id);
+        $alfresco_area = get_the_terms('alfresco_area', $post_id);
+        $balcony_area_sqm = get_the_terms('balcony_area_sqm', $post_id);
+        $porch_area = get_the_terms('porch_area', $post_id);
+        $garage_area = get_the_terms('garage_area', $post_id);
+        $private_living_space_area = get_the_terms('private_living_space_area', $post_id);
+        $outdoor_leisure_area = get_the_terms('outdoor_leisure_area', $post_id);
+        $patio_area = get_the_terms('patio_area', $post_id);
+        $alfresco_granny_area = get_the_terms('alfresco_granny_area', $post_id);
+        $granny_flat_area = get_the_terms('granny_flat_area', $post_id);
+        $loft_area = get_the_terms('loft_area', $post_id);
+        $carport_area = get_the_terms('carport_area', $post_id);
+        $total_home_area = get_the_terms('total_home_area', $post_id);
+        $floor_plan_pdf = get_the_terms('floor_plan_pdf', $post_id);
         $featured_img_url = get_the_post_thumbnail_url($post_id,'full'); 
     }
     // echo $bedroom;

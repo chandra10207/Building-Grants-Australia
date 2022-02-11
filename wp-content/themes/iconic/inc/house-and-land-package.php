@@ -1,7 +1,7 @@
 <?php 
 
 /*Change default visual editor to text editor*/
-// add_filter( 'wcfm_is_allow_wpeditor_quicktags', '__return_true' );
+add_filter( 'wcfm_is_allow_wpeditor_quicktags', '__return_true' );
 
 add_filter( 'woocommerce_price_trim_zeros', '__return_true' );
   
@@ -43,7 +43,7 @@ function nd_add_bed_bath_garage_number(){
     $bed_num = get_the_terms( $product_id , 'pa_bedrooms');
     $bath_num = get_the_terms( $product_id , 'pa_bathrooms');
     $garage_num = get_the_terms( $product_id , 'pa_garage');
-    $lot_size = get_the_terms( $product_id , 'pa_total-lot-area-sqm');
+    $lot_size = get_the_terms( $product_id , 'pa_total-block-area-sqm');
 // 	$house_name = get_field('house_name', $post_id);
 // 	$location = get_field('full_address', $post_id);
 // 	echo '<pre>';

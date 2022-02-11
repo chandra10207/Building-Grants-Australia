@@ -1,12 +1,8 @@
 /*Product Single page Slider*/
-.slick-track
-{
-    display: flex !important;
-}
-
-.slick-slide
-{
-    height: inherit !important;
+.nd-banner-slider-item img{
+    height: 600px !important;
+    width: 100%;
+    object-fit:  cover;
 }
 
 /* Product Archive page*/
@@ -79,5 +75,19 @@ body.woocommerce .left-sidebar, body.woocommerce .right-sidebar, body.woocommerc
    width: 25%; float: left;padding: 0 10px;
 }
 
+
+@media (min-width: 1170px) {
+.nd-banner-slider-item img{
+    height: 600px !important;
+    width: 100%;
+    object-fit:  cover;
+}
+}
+
+@media (max-width: 1170px) {
+.nd-banner-slider-item img{
+    height: 500px !important;
+}
+}
 
 
