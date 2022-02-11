@@ -3,7 +3,7 @@ if (jQuery("#slider-wrapper")[0]){
 	// jQuery('#carouselExampleControls').bcSwipe({ threshold: 50 });
 	// jQuery('#similarPrppertycarousel').bcSwipe({ threshold: 50 });
 	jQuery('.variable-width').slick({
-		arrows: true,
+		arrows: false,
 		dots: false,
 		infinite: true,
 		//speed: 300,
@@ -12,8 +12,8 @@ if (jQuery("#slider-wrapper")[0]){
 		slidesToShow: 1,
 		centerMode: true,
 		variableWidth: true,
-		nextArrow: '.next',
-		prevArrow: '.previous',
+		// nextArrow: '.next',
+		// prevArrow: '.previous',
 		responsive: [{
 		breakpoint: 1024,
 		settings: {

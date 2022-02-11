@@ -7,18 +7,21 @@ function nd_load_single_product_scripts() {
 
 		// Slick Slider CSS
 		wp_deregister_style( 'slick_slider' );
-		wp_register_style( 'slick_slider', esc_url( get_stylesheet_directory_uri() ) . '/vendor/css/slick.css' );
+		wp_register_style( 'slick_slider', esc_url( get_stylesheet_directory_uri() ) . '/vendor/slick/slick.css' );
 		wp_enqueue_style( 'slick_slider' );
 
 		wp_deregister_style( 'slick_slider_theme' );
-		wp_register_style( 'slick_slider_theme', esc_url( get_stylesheet_directory_uri() ) . '/vendor/css/slick-theme.css' );
+		wp_register_style( 'slick_slider_theme', esc_url( get_stylesheet_directory_uri() ) . '/vendor/slick/slick-theme.css' );
 		wp_enqueue_style( 'slick_slider_theme' );
 
 
 		/*Load JS files*/
 
-		wp_register_script('Slick_slider_js', esc_url( get_stylesheet_directory_uri() ) . '/vendor/js/slick.min.js', array('jquery'), '1.0', true );  
+		wp_register_script('Slick_slider_js', esc_url( get_stylesheet_directory_uri() ) . '/vendor/slick/slick.min.js', array('jquery'), '1.0', true );  
 		wp_enqueue_script('Slick_slider_js');
+
+		// wp_register_script('Bootstrap_bundle_js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js', array('jquery'), '1.0', true );  
+		// wp_enqueue_script('Bootstrap_bundle_js');
 
 		wp_register_script('single_product_js', esc_url( get_stylesheet_directory_uri() ) . '/assets/js/single-product.js', array('jquery'), '1.0', true );  
 		wp_enqueue_script('single_product_js');
@@ -29,6 +32,20 @@ function nd_load_single_product_scripts() {
 
 add_action( 'wp_enqueue_scripts', 'nd_load_single_product_scripts', 1001 );
 
+function nd_add_short_desc() {
+    $post_id = get_the_ID();
+	$short_desc = get_the_excerpt($post_id);
+	$data = '';
+	if($short_desc){
+		$data .= '<h2 class="vc_custom_heading align-left">Description</h2><p>';
+		$data .= $short_desc;
+		$data .= '</p><div class="porto-separator  "><hr class="separator-line  align_center solid my-4" style="background-color:#f5f5f5;"></div>';
+	}
+	
+	echo $data;
+
+}
+add_shortcode('nd_short_desc', 'nd_add_short_desc'); 
 
 
 
