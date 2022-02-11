@@ -1,3 +1,14 @@
+/*Product Single page Slider*/
+.slick-track
+{
+    display: flex !important;
+}
+
+.slick-slide
+{
+    height: inherit !important;
+}
+
 /* Product Archive page*/
 .nd-specification-number ul li {
     padding-left: 0;
