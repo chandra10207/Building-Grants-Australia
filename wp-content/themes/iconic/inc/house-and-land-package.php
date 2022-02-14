@@ -4,6 +4,7 @@
 add_filter( 'wcfm_is_allow_wpeditor_quicktags', '__return_true' );
 
 add_filter( 'woocommerce_price_trim_zeros', '__return_true' );
+
   
 function bbloomer_add_price_prefix( $price, $product ){
     $price = '<small>From </small> ' . $price;

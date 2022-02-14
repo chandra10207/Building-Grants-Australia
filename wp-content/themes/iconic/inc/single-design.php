@@ -104,14 +104,15 @@ $floor_plans_childrens   = $product->get_children();
 	 $activeClass='';
 
 $data = '<div class="accordion pt-4" id="accordionPanelsStayOpenExample">';
-	$data = '<h2>'.count($floor_plans_childrens).' Floor Plans to chooose from</h2>';
+	$data .= '<h2>'.count($floor_plans_childrens).' Floor Plans to chooose from</h2>';
+    $data .= '<p> Click on Floor plan name to see more details.</p>';
 
 foreach ($floor_plans_childrens as $post_id)
  {
  	$count++;
 	 $activeClass='';
 	 $floor_plan_pdf = '';
- 	if((int)$count == 1)
+ 	if((int)$count !== 1)
  		{
  			$activeClass =  "show";
  		}
@@ -138,6 +139,11 @@ if($post_id){
         $stories = get_the_terms($post_id, 'pa_stories');
         $suburb = get_the_terms($post_id, 'pa_suburb');
         $total_block_area_sqm = get_the_terms($post_id, 'pa_total-block-area-sqm', $post_id);
+        $total_home_area_sqm = get_the_terms($post_id, 'pa_total-home-area', $post_id);
+
+
+        
+
 
 				$floor_plan_image_id = get_post_meta($post_id,'wpcf-floor-plan-image');
         // $floor_plan_image = get_the_post_thumbnail_url((int)$floor_plan_image_id[0],'full'); 
@@ -185,51 +191,57 @@ if($post_id){
     
     $data .= '<div class="table-responsive"><table><tbody>';
     if($living_rooms){
-        $data .= '<tr><td>Ground Floor</td><td>'.$living_rooms[0]->name.' Sqm</td></tr>';
+        $data .= '<tr><td>Living Rooms</td><td>'.$living_rooms[0]->name.'</td></tr>';
     }
     if($stories){
-        $data .= '<tr><td>First Floor </td><td>'.$stories[0]->name.' Sqm</td></tr>';
+        $data .= '<tr><td>Story </td><td>'.$stories[0]->name.'</td></tr>';
     }
+
+    $data .= '<tr><td colspan="100%"><h4 class="mt-2">'.__( 'Area & Dimensions', 'porto' ) .'</h4></td></tr>';
+
     if($min_block_depth_m){
-        $data .= '<tr><td>Balcony</td><td>'.$min_block_depth_m[0]->name.' Sqm</td></tr>';
+        $data .= '<tr><td>Min Block Depth</td><td>'.$min_block_depth_m[0]->name.' Sqm</td></tr>';
     }
-    if($max_block_depth_m){
-        $data .= '<tr><td>Loft </td><td>'.$max_block_depth_m.' Sqm</td></tr>';
-    }
-    if($min_block_width_m){
-        $data .= '<tr><td>Porch</td><td>'.$min_block_width_m[0]->name.' Sqm</td></tr>';
-    }
-    if($max_block_width_m){
-        $data .= '<tr><td>Outdoor Leisure</td><td>'.$max_block_width_m[0]->name.' Sqm</td></tr>';
-    }
+    // if($max_block_depth_m){
+    //     $data .= '<tr><td>Max Block depth </td><td>'.$max_block_depth_m[0]->name.' Sqm</td></tr>';
+    // }
+    // if($min_block_width_m){
+    //     $data .= '<tr><td>Min Block width</td><td>'.$min_block_width_m[0]->name.' Sqm</td></tr>';
+    // }
+    // if($max_block_width_m){
+    //     $data .= '<tr><td>Max Block width Leisure</td><td>'.$max_block_width_m[0]->name.' Sqm</td></tr>';
+    // }
     if($total_block_area_sqm){
-        $data .= '<tr><td>Carport</td><td>'.$total_block_area_sqm[0]->name.' Sqm</td></tr>';
+        $data .= '<tr><td>Total block Area</td><td>'.$total_block_area_sqm[0]->name.' Sqm</td></tr>';
     }
+    if($total_home_area_sqm){
+        $data .= '<tr><td>Total Home Area</td><td>'.$total_home_area_sqm[0]->name.' Sqm</td></tr>';
+    }
+
     if($min_house_size_sqm){
-        $data .= '<tr><td>Garage</td><td>'.$min_house_size_sqm[0]->name.' Sqm</td></tr>';
+        $data .= '<tr><td>Min House Size</td><td>'.$min_house_size_sqm[0]->name.' Sqm</td></tr>';
     }
     if($max_house_size_sqm){
-        $data .= '<tr><td>Alfresco</td><td>'.$max_house_size_sqm[0]->name.' Sqm</td></tr>';
+        $data .= '<tr><td>Max House Size</td><td>'.$max_house_size_sqm[0]->name.' Sqm</td></tr>';
     }
+
+
+    $data .= '<tr><td colspan="100%"><h4 class="mt-2">'.__( 'Other Features', 'porto' ) .'</h4></td></tr>';
+
     if($property_status){
-        $data .= '<tr><td>Patio</td><td>'.$property_status[0]->name.' Sqm</td></tr>';
+        $data .= '<tr><td>Status</td><td>'.$property_status[0]->name.'</td></tr>';
     }
     if($state){
-        $data .= '<tr><td>Alfresco Granny</td><td>'.$state[0]->name.' Sqm</td></tr>';
+        $data .= '<tr><td>State</td><td>'.$state[0]->name.'</td></tr>';
     }
     if($suburb){
-        $data .= '<tr><td>Granny Flat</td><td>'.$suburb[0]->name.' Sqm</td></tr>';
-    }
-    if($total_block_area_sqm){
-        $data .= '<tr><td>Total Home Area</td><td>'.$total_block_area_sqm[0]->name.' Sqm</td></tr>';
+        $data .= '<tr><td>Shuburb</td><td>'.$suburb[0]->name.'</td></tr>';
     }
 
     if($other_features){
         $data .= '<tr><td>Private Living Space</td><td>'.$other_features[0]->name.' Sqm</td></tr>';
     }
 
-
-    
     $data .= '</tbody></table></div>';
 	
 	$data .= '<div class="nd-button-container overflow-hidden py-3 py-xl-5">';
@@ -237,7 +249,7 @@ if($post_id){
     if($floor_plan_pdf){
 	$data .= '<a class="vc_btn3 vc_btn3-shape-default btn btn-modern btn-md btn-secondary mr-2" href="'.$floor_plan_pdf.'" title="" target="_blank">Download Floor Plan</a>';
 	}
-	$data .= '<a class="vc_btn3 vc_btn3-shape-default btn btn-modern btn-md btn-primary my-3" href="/designs/inclusions/" title="">View Inclusions</a>';
+	// $data .= '<a class="vc_btn3 vc_btn3-shape-default btn btn-modern btn-md btn-primary my-3" href="/designs/inclusions/" title="">View Inclusions</a>';
 	
 	$data .= '</div>';
 
@@ -279,6 +291,7 @@ if($post_id){
     
 
 <?php 
+$data .= '</div>';
 $data .= '</div>';
 
 

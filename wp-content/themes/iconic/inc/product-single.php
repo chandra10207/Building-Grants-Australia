@@ -1,5 +1,20 @@
 <?php
  
+
+add_action('init',function(){
+    global $WCFM, $WCFMmp;
+
+    remove_action('woocommerce_after_shop_loop_item_title', array( $WCFMmp->frontend, 'wcfmmp_sold_by_product' ), 9 );
+    remove_action('woocommerce_after_shop_loop_item_title', array( $WCFMmp->frontend, 'wcfmmp_sold_by_product' ), 50 );
+        // remove_action('woocommerce_after_shop_loop_item', array( $WCFMmp->frontend, 'wcfmmp_sold_by_product' ), 50 );
+    remove_action( 'woocommerce_product_meta_start',   array( $WCFMmp->frontend, 'wcfmmp_sold_by_single_product' ), 50 );
+});
+
+/*Change Sold By Label*/
+add_filter( 'wcfmmp_is_allow_sold_by_label', '__return_false' );
+// add_filter( 'wcfmmp_is_allow_sold_by_logo', '__return_false' );
+
+
 // Load CSS
 function nd_load_single_product_scripts() {
 
@@ -16,9 +31,21 @@ function nd_load_single_product_scripts() {
 
 
 		/*Load JS files*/
-
 		wp_register_script('Slick_slider_js', esc_url( get_stylesheet_directory_uri() ) . '/vendor/slick/slick.min.js', array('jquery'), '1.0', true );  
 		wp_enqueue_script('Slick_slider_js');
+
+
+		/*Fancy Boxs*/
+		wp_deregister_style( 'fancybox' );
+		wp_register_style( 'fancybox', esc_url( get_stylesheet_directory_uri() ) . '/vendor/fancybox/jquery.fancybox.css' );
+		wp_enqueue_style( 'fancybox' );
+
+		wp_register_script('fancybox', esc_url( get_stylesheet_directory_uri() ) . '/vendor/fancybox/jquery.fancybox.js', array('jquery'), '1.0', true );  
+		wp_enqueue_script('fancybox');
+
+
+
+
 
 		// wp_register_script('Bootstrap_bundle_js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js', array('jquery'), '1.0', true );  
 		// wp_enqueue_script('Bootstrap_bundle_js');
