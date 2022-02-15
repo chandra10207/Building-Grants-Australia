@@ -3,6 +3,7 @@ if ( ! is_admin() ) {
 include_once( get_stylesheet_directory() .'/inc/house-and-land-package.php');
 include_once( get_stylesheet_directory() .'/inc/product-single.php');
 include_once( get_stylesheet_directory() .'/inc/single-design.php');
+include_once( get_stylesheet_directory() .'/inc/display-homes.php');
 }
 add_filter( 'media_library_infinite_scrolling', '__return_true' );
 
