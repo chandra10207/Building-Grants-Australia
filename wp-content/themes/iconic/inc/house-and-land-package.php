@@ -208,26 +208,4 @@ function custom_process_new_state_term($post_id, $term_name, $taxonomy_slug) {
 
 
 
-function nd_house_and_lands_key_features(){
-	
-    $post_id = get_the_ID();
-	$rows = get_post_meta($post_id,'wpcf-key-feature');
-	// echo '<pre>';
-	// var_dump($rows);die;
-if( $rows ) {
-	echo '<h2 class="vc_custom_heading align-left">Key Features</h2>';
-    echo '<div class="wpb_content_element overflow-hidden">
-    <ul class="pl-0 nd-list-half list list-icons list-icons-style-2 list-icons-lg1">';
-    foreach( $rows as $row ) {
-        $item = $row;
-        echo '<li><i class="fa fa-check"></i> ';
-            echo $item;
-        echo '</li>';
-    }
-    echo '</ul></div>';
-	echo'<div class="porto-separator  "><hr class="separator-line  align_center solid" style="background-color:#f5f5f5;"></div>';
-}
-	
-}
 
-add_shortcode('nd_key_features', 'nd_house_and_lands_key_features'); 

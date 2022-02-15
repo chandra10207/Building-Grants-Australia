@@ -1,3 +1,10 @@
+/*Store Page */
+body.wcfmmp-store-page #main .container{
+    width: 100% !important;
+    max-width: 100% !important;
+
+}
+
 /*Product Single page Slider*/
 .nd-banner-slider-item img{
     height: 600px !important;
