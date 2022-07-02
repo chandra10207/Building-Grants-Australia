@@ -42,9 +42,12 @@ function nd_update_group_product_attributes_after_save_func($product, $data_stor
             'bedrooms' => array(),
             'bathrooms' => array(),
             'garage' => array(),
-            'house-size-sqm' => array(),
+            'design' => array(),
+            'house-type' => array(),
+            'storeys' => array(),
+//            'house-size-sqm' => array(),
             'living-rooms' => array(),
-            'total-lot-area-sqm' => array(),
+//            'total-lot-area-sqm' => array(),
         ];
 //        $all_child_attributes_to_remove = $all_child_attributes_to_sync;
 
@@ -199,12 +202,51 @@ function csp_update_location_to_attributes($post_id, $value, $taxonomy){
 
 
 function nd_add_google_map_location_to_attributes_after_object_save($location, $wcfm_data) {
-//    $product = wc_get_product( $location['object_id'] );
-//    $_product_attributes = $product->get_attributes();
-//    $_product_attributes = get_post_meta($location['object_id'], '_product_attributes', true);
-//    echo 'hello';
-//    print_r($_product_attributes);die;
+
     if($location){
+        $product_id = $location['object_id'];
+        $product = wc_get_product($product_id);
+        $price = $product->get_price();
+        $state = strtolower($location['region_code']);
+        $grant_attribute = 'grants-available-in-'.$state;
+
+//        $all_child_attributes_to_sync = [
+//            'bedrooms' => array(),
+//            'bathrooms' => array(),
+//            'garage' => array(),
+//            'house-size-sqm' => array(),
+//            'living-rooms' => array(),
+//            'total-lot-area-sqm' => array(),
+//        ];
+//        add_product_attribute($group_product_id, [
+//                'attributes' => $all_child_attributes_to_sync,
+//            ]
+//        );
+
+        if(function_exists('get_grant_ids_by_state_and_price')){
+            $eligible_grants = get_grant_ids_by_state_and_price($state,$price );
+            if(!empty($eligible_grants)){
+                echo 'Inside location'; print_r($eligible_grants);
+                $eligible_grants_array = [];
+                foreach ($eligible_grants as $grant){
+                    $eligible_grants_array[] = $grant['post_title'];
+                }
+                echo 'Final Array'; print_r($eligible_grants_array);
+
+                add_product_attribute($product_id, [
+                        'attributes' => [
+                            $grant_attribute => $eligible_grants_array,
+                        ],
+                    ]
+                );
+
+
+            }
+        }
+
+    }
+
+    /*if($location){
         $full_address = $location['city'].' '.$location['region_code'].', '.$location['postcode'];
 
         add_product_attribute($location['object_id'], [
@@ -214,14 +256,7 @@ function nd_add_google_map_location_to_attributes_after_object_save($location, $
                 ],
 
             ]
-        );
-//        $data = csp_update_location_to_attributes( $location['object_id'], $full_address, 'pa_suburb' );
-//        $_product_attributes = array_merge($_product_attributes, $data);
-//        $data = csp_update_location_to_attributes( $location['object_id'], $location['region_code'], 'pa_state' );
-//        $_product_attributes = array_merge($_product_attributes, $data);
-//        update_post_meta($location['object_id'], '_product_attributes', $_product_attributes);
-    }
-
+        ); }*/
 
 }
 
@@ -612,11 +647,23 @@ function add_product_attribute($product_id, $data)
     }
     $is_append  = false;
     $append_exclude = array('suburb','state');
+    $append_include = array(
+            'grants-available-in-nsw',
+        'grants-available-in-sa',
+        'grants-available-in-vic',
+        'grants-available-in-wa',
+        'grants-federal',
+        'grants-available-in-qld'
+    );
 
 
     foreach ($data['attributes'] as $key => $terms) {
 
         if ($product->is_type('grouped')  AND !in_array($key, $append_exclude) ) {
+            $is_append  = true;
+        }
+
+        if(in_array($key, $append_include)){
             $is_append  = true;
         }
 

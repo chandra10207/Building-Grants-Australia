@@ -26,7 +26,7 @@ add_action('wcfm_init',function(){
 });
 
 
-add_action('init', 'nd_get_grant_data');
+//add_action('init', 'nd_get_grant_data');
 function nd_get_grant_data(){
 
     if(!is_admin()){
