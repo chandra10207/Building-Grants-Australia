@@ -208,7 +208,9 @@ function nd_add_google_map_location_to_attributes_after_object_save($location, $
         $product = wc_get_product($product_id);
         $price = $product->get_price();
         $state = strtolower($location['region_code']);
-        $grant_attribute = 'grants-available-in-'.$state;
+        $grant_state_attribute = 'grants-available-in-'.$state;
+        $grant_federal_attribute = 'grants-federal';
+        $eligible_grants = [];
 
 //        $all_child_attributes_to_sync = [
 //            'bedrooms' => array(),
@@ -224,8 +226,30 @@ function nd_add_google_map_location_to_attributes_after_object_save($location, $
 //        );
 
         if(function_exists('get_grant_ids_by_state_and_price')){
-            $eligible_grants = get_grant_ids_by_state_and_price($state,$price );
-            if(!empty($eligible_grants)){
+            $eligible_state_grants = get_grant_ids_by_state_and_price($price,$state );
+            if(!empty($eligible_state_grants)){
+                $eligible_state_grant_terms = [];
+                foreach ($eligible_state_grants as $grant){
+                    $eligible_grants_array[] = $grant['post_title'];
+                }
+                $eligible_grants[$grant_state_attribute] = $eligible_grants_array;
+            }
+
+            $eligible_federal_grants = get_grant_ids_by_state_and_price($price );
+            if(!empty($eligible_federal_grants)){
+                $eligible_federal_grant_terms = [];
+                foreach ($eligible_federal_grants as $grant){
+                    $eligible_federal_grant_terms[] = $grant['post_title'];
+                }
+                $eligible_grants[$grant_federal_attribute] = $eligible_federal_grant_terms;
+            }
+            echo 'All Eligible Grants'. PHP_EOL; print_r($eligible_grants);
+            add_product_attribute($product_id, [
+                    'attributes' => $eligible_grants,
+                ]
+            );
+
+            /*if(!empty($eligible_grants)){
                 echo 'Inside location'; print_r($eligible_grants);
                 $eligible_grants_array = [];
                 foreach ($eligible_grants as $grant){
@@ -235,13 +259,12 @@ function nd_add_google_map_location_to_attributes_after_object_save($location, $
 
                 add_product_attribute($product_id, [
                         'attributes' => [
-                            $grant_attribute => $eligible_grants_array,
+                            $grant_state_attribute => $eligible_grants_array,
                         ],
                     ]
                 );
+            }*/
 
-
-            }
         }
 
     }

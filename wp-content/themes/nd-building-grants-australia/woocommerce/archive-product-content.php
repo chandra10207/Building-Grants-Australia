@@ -5,8 +5,10 @@ global $porto_settings,$wp_query;
 
 $js_wc_prdctfltr = false;
 $porto_settings['category-ajax'] = false;
+if(get_queried_object()->term_id){
+    $term_id = get_queried_object()->term_id;
+}
 
-$term_id = get_queried_object()->term_id;
 $posts_per_page = 12;
 
 $tax_query = [];
@@ -70,8 +72,13 @@ if(isset($_GET['state']) && !empty($_GET['state'])){
 }
 
 if(!empty($att_queries)){
-	$tax_query[]= ['relation' => 'AND'];
-	$tax_query[] = array('taxonomy' => 'product_cat', 'field' => 'term_id', 'terms' => gt_clean($term_id));
+    if($term_id){
+        $tax_query[]= ['relation' => 'AND'];
+        $tax_query[] = array('taxonomy' => 'product_cat', 'field' => 'term_id', 'terms' => gt_clean($term_id));
+
+    }
+//	$tax_query[]= ['relation' => 'AND'];
+//	$tax_query[] = array('taxonomy' => 'product_cat', 'field' => 'term_id', 'terms' => gt_clean($term_id));
 	$tax_query = array_merge($tax_query,$att_queries);
 }
 

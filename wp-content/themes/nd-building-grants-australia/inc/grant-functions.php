@@ -2,13 +2,19 @@
 /**
  * Check for available grants on grants post type by state and price
  *
- * @param  string $state, string $price
+ * @param  string $price
+ * @param  string $state
  * @return array
  */
-function get_grant_ids_by_state_and_price($state, $price)
+function get_grant_ids_by_state_and_price($price, $state = '' )
 {
     $grant_category_slug = [];
-    $grant_category_slug[] = 'grants-available-in-'.$state;
+    if($state != ''){
+        $grant_category_slug[] = 'grants-available-in-'.$state;
+    }
+    else{
+        $grant_category_slug[] = 'grants-federal';
+    }
     $price = intval($price);
     $taxonomy = 'grant-type';
     global $wpdb;
@@ -23,6 +29,9 @@ function get_grant_ids_by_state_and_price($state, $price)
         AND ( pm.meta_key = 'wpcf-max-price' AND pm.meta_value > %d )
         AND p.post_type = 'grant' 
         ORDER BY p.post_date DESC", $taxonomy, implode("','", $grant_category_slug), $price);
+
+//    echo 'Query     '; print_r($query);
+
 
     return $wpdb->get_results($query,ARRAY_A );
 }
