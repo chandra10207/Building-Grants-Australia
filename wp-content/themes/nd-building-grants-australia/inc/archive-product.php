@@ -1,4 +1,37 @@
-<?php 
+<?php
+
+
+
+add_action( 'woocommerce_before_shop_loop_item_title', 'csp_add_grants_rebates_available_count', 15 );
+function csp_add_grants_rebates_available_count(){
+    global $product;
+    $grant_count = 0;
+    $product_id = $product->get_id();
+    $rebate_price = get_post_meta($product_id, 'wpcf-rebate_price', true);
+    $location = gmw_get_post_location( $product_id );
+//    var_dump($location['region_code']);die;
+    $state = strtolower($location->region_code);
+    $state_grants_name = 'pa_grants-available-in-'.$state;
+    $state_grants = get_the_terms( $product_id , $state_grants_name);
+    $federal_grants = get_the_terms( $product_id , 'pa_grants-federal');
+    if(!empty($state_grants)){
+        $grant_count += count($state_grants);
+    }
+    if(!empty($federal_grants)){
+        $grant_count += count($federal_grants);
+    }
+    ?>
+        <div class="nd-grants-rebates-available">
+            <?php if($rebate_price AND $rebate_price !=''){?>
+                <div> <span class="badge badge-primary">50K Rebates Available</span></div>
+            <?php } ?>
+            <?php if($grant_count > 0){ ?>
+                 <div><span class="badge badge-primary"><?php echo $grant_count; ?> Grants Available</span></div>
+            <?php } ?>
+        </div>
+        <?php
+}
+
 
 add_action( 'woocommerce_after_main_content', 'nd_archive_ads_section', 10 );
 function nd_archive_ads_section(){

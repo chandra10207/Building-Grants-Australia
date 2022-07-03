@@ -2,15 +2,29 @@
 // apply_filters( 'wcfm_vendor_store_taxomonies', $vendor_taxonomies, $this->get_id(), $taxonomy )
 add_action('wcfm_product_manager_left_panel_before', 'csp_add_label_before_listing_title');
 add_action('wcfm_product_manager_right_panel_before', 'csp_add_label_before_featured_image');
-
 add_filter( 'upload_size_limit', 'csp_filter_site_upload_size_limit', 20 );
+//add_action('wcfm_main_contentainer_after','csp_wcfm_add_js_dashboard');
 
- if(!is_admin()){
-
+if(!is_admin()){
 add_filter( 'wcfm_vendor_store_taxomonies', 'csp_filter_vendor_categories',10,3 );
+}
+
+function csp_wcfm_add_js_dashboard() { ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('.checklist_type_product_cat').change(function() {
+                if( ($(this).is(":checked")) && ($(this).val()==107) ) {
+                    //replace 107 with your "Group listing Item category" category id
+                    // add your code to hide Rebates tab
+                    } else
+                    { //add your code to show Rebates tab
+                        }
+                    });
+        });
+                </script> <?php }
 
 
-    // add_filter( 'wcfm_is_allow_store_articles', '__return_true' );
+// add_filter( 'wcfm_is_allow_store_articles', '__return_true' );
     
     // add_filter( 'wcfm_is_allow_wpeditor_quicktags', '__return_true' );
     // add_filter( 'wcfmmp_store_tabs', 'csp_new_wcfmmp_store_tabs',90,2);
@@ -88,9 +102,6 @@ add_action( 'wcfmmp_after_store_article', function( $store_id, $store_info ) {
 }, 50, 2);
 
 
-}
-
-
 
 function csp_filter_vendor_categories ($vendor_taxonomies, $id, $taxonomy){
     if(array_key_exists('70', $vendor_taxonomies)){
@@ -109,7 +120,7 @@ function csp_filter_vendor_categories ($vendor_taxonomies, $id, $taxonomy){
   function csp_add_label_before_featured_image(){
  	?>
  	<p class="text-center font-weight-bold">Select Facade or Main Images.</p>
-    <p class="text-center px-lg-4 small"> (1200px width by 900px height recommended.)</p>
+    <p class="text-center px-lg-4 small"> (1200 px width by 900 px height. Max 4MB in size. )</p>
  	<?php
  }
 

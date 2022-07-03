@@ -12,6 +12,24 @@
 /*    text-align: center;*/
 /*}*/
 
+ul.products .nd-grants-rebates-available {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+}
+
+ul.products .nd-grants-rebates-available span.badge{
+    display:inline-block;
+    display: inline-block;
+    background: rgb(20, 31, 40, 0.6);
+    background: rgb(46, 138, 212, 0.9);
+    border-radius: 15px;
+    padding: 5px 10px;
+}
+
+.wcfm-product-feature-upload img {
+    object-fit: contain;
+}
 div.gmw-single-location-wrapper h3.gmw-sl-title {
     display: none;
 }
