@@ -1,5 +1,14 @@
 <?php
 
+function csp_get_current_states(){
+    global $wpdb;
+    $results = $wpdb->get_results(
+        $wpdb->prepare( "SELECT DISTINCT region_code FROM {$wpdb->prefix}gmw_locations"),
+        ARRAY_A
+    );
+    return $results;
+}
+
 function get_product_ids_by_region($region_code){
 	global $wpdb;
 	$results = $wpdb->get_results(

@@ -22,8 +22,10 @@ function csp_add_grants_rebates_available_count(){
     }
     ?>
         <div class="nd-grants-rebates-available">
-            <?php if($rebate_price AND $rebate_price !=''){?>
-                <div> <span class="badge badge-primary">50K Rebates Available</span></div>
+            <?php if($rebate_price AND $rebate_price !=''){
+                $k_rebate_price = intval($rebate_price)/1000;
+                ?>
+                <div> <span class="badge badge-primary"><?php echo $k_rebate_price ?>K Rebates Available</span></div>
             <?php } ?>
             <?php if($grant_count > 0){ ?>
                  <div><span class="badge badge-primary"><?php echo $grant_count; ?> Grants Available</span></div>

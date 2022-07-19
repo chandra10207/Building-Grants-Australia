@@ -201,87 +201,7 @@ function csp_update_location_to_attributes($post_id, $value, $taxonomy){
 }
 
 
-function nd_add_google_map_location_to_attributes_after_object_save($location, $wcfm_data) {
 
-    if($location){
-        $product_id = $location['object_id'];
-        $product = wc_get_product($product_id);
-        $price = $product->get_price();
-        $state = strtolower($location['region_code']);
-        $grant_state_attribute = 'grants-available-in-'.$state;
-        $grant_federal_attribute = 'grants-federal';
-        $eligible_grants = [];
-
-//        $all_child_attributes_to_sync = [
-//            'bedrooms' => array(),
-//            'bathrooms' => array(),
-//            'garage' => array(),
-//            'house-size-sqm' => array(),
-//            'living-rooms' => array(),
-//            'total-lot-area-sqm' => array(),
-//        ];
-//        add_product_attribute($group_product_id, [
-//                'attributes' => $all_child_attributes_to_sync,
-//            ]
-//        );
-
-        if(function_exists('get_grant_ids_by_state_and_price')){
-            $eligible_state_grants = get_grant_ids_by_state_and_price($price,$state );
-            if(!empty($eligible_state_grants)){
-                $eligible_state_grant_terms = [];
-                foreach ($eligible_state_grants as $grant){
-                    $eligible_grants_array[] = $grant['post_title'];
-                }
-                $eligible_grants[$grant_state_attribute] = $eligible_grants_array;
-            }
-
-            $eligible_federal_grants = get_grant_ids_by_state_and_price($price );
-            if(!empty($eligible_federal_grants)){
-                $eligible_federal_grant_terms = [];
-                foreach ($eligible_federal_grants as $grant){
-                    $eligible_federal_grant_terms[] = $grant['post_title'];
-                }
-                $eligible_grants[$grant_federal_attribute] = $eligible_federal_grant_terms;
-            }
-            echo 'All Eligible Grants'. PHP_EOL; print_r($eligible_grants);
-            add_product_attribute($product_id, [
-                    'attributes' => $eligible_grants,
-                ]
-            );
-
-            /*if(!empty($eligible_grants)){
-                echo 'Inside location'; print_r($eligible_grants);
-                $eligible_grants_array = [];
-                foreach ($eligible_grants as $grant){
-                    $eligible_grants_array[] = $grant['post_title'];
-                }
-                echo 'Final Array'; print_r($eligible_grants_array);
-
-                add_product_attribute($product_id, [
-                        'attributes' => [
-                            $grant_state_attribute => $eligible_grants_array,
-                        ],
-                    ]
-                );
-            }*/
-
-        }
-
-    }
-
-    /*if($location){
-        $full_address = $location['city'].' '.$location['region_code'].', '.$location['postcode'];
-
-        add_product_attribute($location['object_id'], [
-        'attributes' => [
-            'suburb' => array( $full_address),
-            'state' => array($location['region_code']),
-                ],
-
-            ]
-        ); }*/
-
-}
 
 
 
@@ -726,4 +646,90 @@ function add_product_attribute($product_id, $data)
 
 }
 
+function nd_add_google_map_location_to_attributes_after_object_save($location, $wcfm_data) {
 
+    if($location){
+        $product_id = $location['object_id'];
+        $product = wc_get_product($product_id);
+        $price = $product->get_price();
+        $state = strtolower($location['region_code']);
+        $grant_state_attribute = 'grants-available-in-'.$state;
+        $grant_federal_attribute = 'grants-federal';
+        $eligible_grants = [];
+
+//        $all_child_attributes_to_sync = [
+//            'bedrooms' => array(),
+//            'bathrooms' => array(),
+//            'garage' => array(),
+//            'house-size-sqm' => array(),
+//            'living-rooms' => array(),
+//            'total-lot-area-sqm' => array(),
+//        ];
+//        add_product_attribute($group_product_id, [
+//                'attributes' => $all_child_attributes_to_sync,
+//            ]
+//        );
+
+        if(function_exists('get_grant_ids_by_state_and_price')){
+            $eligible_state_grants_array = [];
+            $eligible_federal_grants_array = [];
+            $eligible_state_grants = get_grant_ids_by_state_and_price($price,$state );
+            if(!empty($eligible_state_grants)){
+                foreach ($eligible_state_grants as $grant){
+                    $eligible_state_grants_array[] = $grant['ID'];
+                }
+                $eligible_grants[$grant_state_attribute] = $eligible_state_grants_array;
+
+                $state_grants_meta_value = implode(',',$eligible_state_grants_array);
+                update_post_meta($product_id, 'state_grants',$state_grants_meta_value );
+            }
+
+            $eligible_federal_grants = get_grant_ids_by_state_and_price($price );
+            if(!empty($eligible_federal_grants)){
+                foreach ($eligible_federal_grants as $grant){
+                    $eligible_federal_grants_array[] = $grant['ID'];
+                }
+                $eligible_grants[$grant_federal_attribute] = $eligible_federal_grants_array;
+                $federal_grants_meta_value = implode(',',$eligible_federal_grants_array);
+                update_post_meta($product_id, 'federal_grants',$federal_grants_meta_value );
+            }
+
+//            echo 'All Eligible Grants'. PHP_EOL; print_r($eligible_grants);
+            /*add_product_attribute($product_id, [
+                    'attributes' => $eligible_grants,
+                ]
+            );*/
+
+            /*if(!empty($eligible_grants)){
+                echo 'Inside location'; print_r($eligible_grants);
+                $eligible_grants_array = [];
+                foreach ($eligible_grants as $grant){
+                    $eligible_grants_array[] = $grant['post_title'];
+                }
+                echo 'Final Array'; print_r($eligible_grants_array);
+
+                add_product_attribute($product_id, [
+                        'attributes' => [
+                            $grant_state_attribute => $eligible_grants_array,
+                        ],
+                    ]
+                );
+            }*/
+
+        }
+
+    }
+
+    /*if($location){
+        $full_address = $location['city'].' '.$location['region_code'].', '.$location['postcode'];
+
+        add_product_attribute($location['object_id'], [
+        'attributes' => [
+            'suburb' => array( $full_address),
+            'state' => array($location['region_code']),
+                ],
+
+            ]
+        ); }*/
+
+}

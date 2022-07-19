@@ -13,6 +13,7 @@ $attribute_names = wc_get_attribute_taxonomy_names();
 
 $gt_attributes = gt_get_combined_filters($attr_args);
 
+
 //Suburbs
 $suburbs = $gt_attributes['suburbs'];
 
@@ -57,10 +58,14 @@ $adv_refined_attributes = array('pa_living-rooms','pa_other-features','pa_house-
 
 
 $gt_page = !empty($_GET['page'])?gt_clean($_GET['page']):1;
+
+$gt_federal_grants = gt_get_products_meta_values('federal_grants',$attr_args);
+var_dump($gt_federal_grants);die;
 $state = !empty($_GET['state'])?gt_clean($_GET['state']):"";
 if(!empty($state)){
 $grant_attribute_by_state = 'pa_grants-available-in-'.strtolower($state);
 $grant_refined_attributes = array($grant_attribute_by_state, 'pa_grants-federal');
+$gt_state_grants = gt_get_products_meta_values('state_grants',$attr_args);
 }else{
 $grant_refined_attributes = array('pa_grants-federal');	
 }

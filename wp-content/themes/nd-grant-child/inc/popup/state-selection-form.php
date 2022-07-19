@@ -223,11 +223,16 @@ function csp_populate_states( $form ) {
         if ( $field->type == 'radio' &&  $field->label == 'State') {
  
         $choices = array();
-        $current_state = get_terms("pa_state");
+//        $current_state = get_terms("pa_state");
+
+            $current_state = csp_get_current_states();
+//        echo '<pre>';
+//        var_dump($sta$current_statetes);
 
  
         foreach ( $current_state as $state ) {
-            $choices[] = array( 'text' => $state->name, 'value' => $state->slug );
+//            $choices[] = array( 'text' => $state->name, 'value' => $state->slug );
+            $choices[] = array( 'text' => $state["region_code"], 'value' => strtolower($state["region_code"]) );
         }
 
 //         $choices[] = array( 'text' => 'x', 'value' => 'any');

@@ -95,7 +95,7 @@ function porto_grant_skin_meta_box() {
 // Save Meta Values
 add_action( 'save_post', 'porto_save_grant_meta_values' );
 function porto_save_grant_meta_values( $post_id ) {
-	if ( ! function_exists( 'get_current_screen' ) ) {
+	if ( !is_admin() || !function_exists( 'get_current_screen' ) ) {
 		return;
 	}
 	$screen = get_current_screen();

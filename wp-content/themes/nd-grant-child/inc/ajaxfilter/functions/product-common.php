@@ -201,8 +201,9 @@ function gt_get_combined_filters($args){
     }else{
 	  $filters['suburbs'] = array();  
     }
-    
-    return $filters;	
+
+//    var_dump($filters);die;
+    return $filters;
 }
 	
 
