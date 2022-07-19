@@ -8,12 +8,14 @@ function csp_add_grants_rebates_available_count(){
     $grant_count = 0;
     $product_id = $product->get_id();
     $rebate_price = get_post_meta($product_id, 'wpcf-rebate_price', true);
-    $location = gmw_get_post_location( $product_id );
+//    $location = gmw_get_post_location( $product_id );
 //    var_dump($location['region_code']);die;
-    $state = strtolower($location->region_code);
-    $state_grants_name = 'pa_grants-available-in-'.$state;
-    $state_grants = get_the_terms( $product_id , $state_grants_name);
-    $federal_grants = get_the_terms( $product_id , 'pa_grants-federal');
+//    $state = strtolower($location->region_code);
+//    $state_grants_name = 'pa_grants-available-in-'.$state;
+//    $state_grants = get_the_terms( $product_id , $state_grants_name);
+//    $federal_grants = get_the_terms( $product_id , 'pa_grants-federal');
+    $state_grants = get_post_meta($product_id, 'state_grants', false);
+    $federal_grants = get_post_meta($product_id, 'state_grants', false);
     if(!empty($state_grants)){
         $grant_count += count($state_grants);
     }

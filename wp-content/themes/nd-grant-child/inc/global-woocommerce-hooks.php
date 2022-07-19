@@ -675,23 +675,26 @@ function nd_add_google_map_location_to_attributes_after_object_save($location, $
             $eligible_federal_grants_array = [];
             $eligible_state_grants = get_grant_ids_by_state_and_price($price,$state );
             if(!empty($eligible_state_grants)){
+                delete_post_meta($product_id, 'state_grants');
                 foreach ($eligible_state_grants as $grant){
-                    $eligible_state_grants_array[] = $grant['ID'];
+                    add_post_meta($product_id, 'state_grants',$grant['ID'] );
+//                    $eligible_state_grants_array[] = $grant['ID'];
                 }
-                $eligible_grants[$grant_state_attribute] = $eligible_state_grants_array;
-
-                $state_grants_meta_value = implode(',',$eligible_state_grants_array);
-                update_post_meta($product_id, 'state_grants',$state_grants_meta_value );
+//                $eligible_grants[$grant_state_attribute] = $eligible_state_grants_array;
+//                $state_grants_meta_value = implode(',',$eligible_state_grants_array);
+//                update_post_meta($product_id, 'state_grants',$state_grants_meta_value );
             }
 
             $eligible_federal_grants = get_grant_ids_by_state_and_price($price );
             if(!empty($eligible_federal_grants)){
+                delete_post_meta($product_id, 'federal_grants');
                 foreach ($eligible_federal_grants as $grant){
-                    $eligible_federal_grants_array[] = $grant['ID'];
+                    add_post_meta($product_id, 'federal_grants',$grant['ID'] );
+//                    $eligible_federal_grants_array[] = $grant['ID'];
                 }
-                $eligible_grants[$grant_federal_attribute] = $eligible_federal_grants_array;
-                $federal_grants_meta_value = implode(',',$eligible_federal_grants_array);
-                update_post_meta($product_id, 'federal_grants',$federal_grants_meta_value );
+//                $eligible_grants[$grant_federal_attribute] = $eligible_federal_grants_array;
+//                $federal_grants_meta_value = implode(',',$eligible_federal_grants_array);
+//                update_post_meta($product_id, 'federal_grants',$federal_grants_meta_value );
             }
 
 //            echo 'All Eligible Grants'. PHP_EOL; print_r($eligible_grants);

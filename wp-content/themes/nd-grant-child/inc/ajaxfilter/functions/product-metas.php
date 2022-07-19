@@ -6,7 +6,10 @@ function gt_get_products_meta_values($meta_key,$args){
 		$meta_values = array();
 		foreach($productIDs as $productID){
 			$value = get_post_meta( $productID, $meta_key, true);
-			$meta_values[]= (!empty($value))?$value:0;
+            if(!empty($value)){
+                $meta_values[]= $value;
+            }
+//			$meta_values[]= (!empty($value))?$value:0;
 			
 		}
 

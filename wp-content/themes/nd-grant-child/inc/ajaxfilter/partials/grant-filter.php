@@ -59,15 +59,17 @@ $adv_refined_attributes = array('pa_living-rooms','pa_other-features','pa_house-
 
 $gt_page = !empty($_GET['page'])?gt_clean($_GET['page']):1;
 
+$grant_refined_attributes = array('pa_grants-federal');
 $gt_federal_grants = gt_get_products_meta_values('federal_grants',$attr_args);
-var_dump($gt_federal_grants);die;
+$gt_attributes['pa_grants-federal'] = $gt_federal_grants;
+//var_dump($gt_federal_grants);die;
+
 $state = !empty($_GET['state'])?gt_clean($_GET['state']):"";
 if(!empty($state)){
 $grant_attribute_by_state = 'pa_grants-available-in-'.strtolower($state);
 $grant_refined_attributes = array($grant_attribute_by_state, 'pa_grants-federal');
 $gt_state_grants = gt_get_products_meta_values('state_grants',$attr_args);
-}else{
-$grant_refined_attributes = array('pa_grants-federal');	
+$gt_attributes[$grant_attribute_by_state] = $gt_state_grants;
 }
 
 ?> 
@@ -466,7 +468,7 @@ $grant_refined_attributes = array('pa_grants-federal');
 									<?php if(isset($_REQUEST[$nice_tax_attr_lbl[0]]) && $_REQUEST[$nice_tax_attr_lbl[0]]==$value){?> selected="selected"<?php } ?>
 									<?php echo ($count==0)?"disabled":"";?>
 									>
-									<?php echo $value;?><?php //if($attr_key=='pa_garage'){echo ($value>1)?" Cars ":" Car ";}?>(<?php echo $count; ?>)
+									<?php echo get_the_title(intval($value));?><?php //if($attr_key=='pa_garage'){echo ($value>1)?" Cars ":" Car ";}?>(<?php echo $count; ?>)
 									</option>
 								<?php }?>
 							</select>
