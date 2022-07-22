@@ -144,7 +144,7 @@ function load_products(page,data){
 				    //history.pushState({}, '', `${location.pathname}?${decodedString}`);
 					var currentURL = window.location.search;
 					if(hasQueryParams(currentURL)){
-						var grantFilterNames = ['sortby', 'page', 'state', 'suburbs', 'storeys', 'beds', 'baths', 'garage', 'min_price', 'max_price', 'lr', 'feature', 'design', 'p_status', 'rebate_t', 'min_hs', 'max_hs', 'min_ls', 'max_ls', 'min_bw', 'max_bw', 'min_bd', 'max_bd', 'gt_fed', 'gt_nsw', 'gt_qld', 'gt_sa', 'gt_vic', 'gt_wa'];
+						var grantFilterNames = ['sortby', 'page', 'state', 'suburbs', 'storeys', 'beds', 'baths', 'garage', 'min_price', 'max_price', 'lr', 'feature', 'design', 'p_status', 'rebate_t', 'min_hs', 'max_hs', 'min_ls', 'max_ls', 'min_bw', 'max_bw', 'min_bd', 'max_bd', 'gt_fed', 'gt_state', 'gt_nsw', 'gt_qld', 'gt_sa', 'gt_vic', 'gt_wa'];
 						
 						let currentQueryString = new URLSearchParams(currentURL);
 						let curKeysForDel = [];

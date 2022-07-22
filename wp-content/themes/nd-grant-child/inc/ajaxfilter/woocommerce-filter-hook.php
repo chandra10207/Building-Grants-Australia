@@ -79,13 +79,16 @@ function grant_action_function(){
 		$att_queries[] = array('taxonomy' => 'pa_rebate-type', 'field' => 'name', 'terms' => $filters['rebate_t']);
 	}
 	if(array_key_exists('gt_fed',$filters) && !empty($filters['gt_fed'])){
-		$att_queries[] = array('taxonomy' => 'pa_grants-federal', 'field' => 'name', 'terms' => $filters['gt_fed']);
+//		$att_queries[] = array('taxonomy' => 'pa_grants-federal', 'field' => 'name', 'terms' => $filters['gt_fed']);
+        $meta_query[] = array('key' => 'federal_grants', 'value' => $filters['gt_fed'], 'compare' => 'IN');
 	}
 	if(array_key_exists('state',$filters) && !empty($filters['state'])){
 		$state_grant_attr = 'pa_grants-available-in-'.trim(strtolower($filters['state']));
-		$state_grant_key = 'gt_'.trim(strtolower($filters['state']));
+//		$state_grant_key = 'gt_'.trim(strtolower($filters['state']));
+		$state_grant_key = 'gt_state';
 		if(array_key_exists($state_grant_key,$filters) && !empty($filters[$state_grant_key])){
-			$att_queries[] = array('taxonomy' => $state_grant_attr, 'field' => 'name', 'terms' => $filters[$state_grant_key]);
+//			$att_queries[] = array('taxonomy' => $state_grant_attr, 'field' => 'name', 'terms' => $filters[$state_grant_key]);
+            $meta_query[] = array('key' => 'state_grants', 'value' => $filters[$state_grant_key], 'compare' => 'IN');
 		}
 	}
 	

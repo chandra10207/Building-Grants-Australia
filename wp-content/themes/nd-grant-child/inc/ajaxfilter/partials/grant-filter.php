@@ -72,6 +72,8 @@ $gt_state_grants = gt_get_products_meta_values('state_grants',$attr_args);
 $gt_attributes[$grant_attribute_by_state] = $gt_state_grants;
 }
 
+
+
 ?> 
                     
 <div class="grant-filter">
@@ -210,6 +212,16 @@ $gt_attributes[$grant_attribute_by_state] = $gt_state_grants;
 		
 		<div class="gt-advanced-search">
 			<div class="gt-filter-spacer"></div>
+            <?php
+            $adv_refined_attributes_exist = false;
+            foreach($adv_refined_attributes as $attr_key) {
+                if (!empty($gt_attributes[$attr_key])) {
+                    $adv_refined_attributes_exist = true;
+                }
+            }
+
+            if( $adv_refined_attributes_exist) { 
+                ?>
 		<div class="row">
 			<div class="col-lg-12">
 				<h4>Additional Features</h4>
@@ -240,6 +252,7 @@ $gt_attributes[$grant_attribute_by_state] = $gt_state_grants;
 				
 			</div>
 		</div>
+            <?php } ?>
 		
 		<?php if(!empty($house_sizes) OR !empty($land_sizes) ) {?>
 			<div class="gt-filter-spacer"></div>
@@ -447,7 +460,7 @@ $gt_attributes[$grant_attribute_by_state] = $gt_state_grants;
 
 
 
-
+<?php if(!empty($gt_attributes['pa_grants-federal']) || !empty($gt_attributes[$grant_attribute_by_state])) { ?>
 		<div class="gt-filter-spacer"></div>
 		<div class="row">
 			<div class="col-lg-12">
@@ -478,6 +491,10 @@ $gt_attributes[$grant_attribute_by_state] = $gt_state_grants;
 				</div>	
 			</div>
 		</div>
+
+            <?php } ?>
+
+
 		<div class="gt-filter-spacer"></div>
 		<div class="row">
 			<div class="col-lg-12">

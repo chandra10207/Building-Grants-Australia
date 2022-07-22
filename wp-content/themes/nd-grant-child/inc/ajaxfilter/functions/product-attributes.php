@@ -37,11 +37,16 @@ function get_nice_attr_tax_lbl($attr_tax_name){
 		case 'pa_bedrooms': return array("beds","Beds"); break;
 		case 'pa_garage': return array("garage","Garage"); break;
 		
-		case 'pa_grants-available-in-nsw': return array("gt_nsw","Eligible NSW Grants"); break;
-		case 'pa_grants-available-in-qld': return array("gt_qld","Eligible QLD Grants"); break;
-		case 'pa_grants-available-in-sa': return array("gt_sa","Eligible SA Grants"); break;
-		case 'pa_grants-available-in-vic': return array("gt_vic","Eligible VIC Grants"); break;
-		case 'pa_grants-available-in-wa': return array("gt_wa","Eligible WA Grants"); break;
+//		case 'pa_grants-available-in-nsw': return array("gt_nsw","Eligible NSW Grants"); break;
+//		case 'pa_grants-available-in-qld': return array("gt_qld","Eligible QLD Grants"); break;
+//		case 'pa_grants-available-in-sa': return array("gt_sa","Eligible SA Grants"); break;
+//		case 'pa_grants-available-in-vic': return array("gt_vic","Eligible VIC Grants"); break;
+//		case 'pa_grants-available-in-wa': return array("gt_wa","Eligible WA Grants"); break;
+        case 'pa_grants-available-in-nsw': return array("gt_state","Eligible NSW Grants"); break;
+        case 'pa_grants-available-in-qld': return array("gt_state","Eligible QLD Grants"); break;
+        case 'pa_grants-available-in-sa': return array("gt_state","Eligible SA Grants"); break;
+        case 'pa_grants-available-in-vic': return array("gt_state","Eligible VIC Grants"); break;
+        case 'pa_grants-available-in-wa': return array("gt_state","Eligible WA Grants"); break;
 		case 'pa_grants-federal': return array("gt_fed","Eligible Federal Grants"); break;
 		
 		case 'pa_house-type': return array("type","House Type"); break;

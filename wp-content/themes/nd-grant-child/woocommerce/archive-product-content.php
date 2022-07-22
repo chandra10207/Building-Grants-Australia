@@ -60,15 +60,22 @@ if(isset($_GET['rebate_t']) && !empty($_GET['rebate_t'])){
 }
 if(isset($_GET['gt_fed']) && !empty($_GET['gt_fed'])){
 	$gt_fed_array = (strpos($_GET['gt_fed'], ',') !== false )?explode (',', gt_clean($_GET['gt_fed'])):gt_clean($_GET['gt_fed']);
-	$att_queries[] = array('taxonomy' => 'pa_grants-federal', 'field' => 'name', 'terms' => $gt_fed_array );
+    print_r($gt_fed_array);
+    $meta_query[] = array('key' => 'federal_grants', 'value' => $gt_fed_array, 'compare' => 'IN');
+//	$att_queries[] = array('taxonomy' => 'pa_grants-federal', 'field' => 'name', 'terms' => $gt_fed_array );
 }
 if(isset($_GET['state']) && !empty($_GET['state'])){
-	$state_grant_attr = 'pa_grants-available-in-'.trim(strtolower($_GET['state']));
-	$state_grant_key = 'gt_'.trim(strtolower($_GET['state']));
-	if(isset($_GET[$state_grant_key]) && !empty($_GET[$state_grant_key])){
-		$gt_st_array = (strpos($_GET[$state_grant_key], ',') !== false )?explode (',', gt_clean($_GET[$state_grant_key])):gt_clean($_GET[$state_grant_key]);
-		$att_queries[] = array('taxonomy' => $state_grant_attr, 'field' => 'name', 'terms' => $gt_st_array );
-	}
+//	$state_grant_attr = 'pa_grants-available-in-'.trim(strtolower($_GET['state']));
+//	$state_grant_key = 'gt_'.trim(strtolower($_GET['state']));
+//	if(isset($_GET[$state_grant_key]) && !empty($_GET[$state_grant_key])){
+//		$gt_st_array = (strpos($_GET[$state_grant_key], ',') !== false )?explode (',', gt_clean($_GET[$state_grant_key])):gt_clean($_GET[$state_grant_key]);
+//		$att_queries[] = array('taxonomy' => $state_grant_attr, 'field' => 'name', 'terms' => $gt_st_array );
+//	}
+    $state_grant_key = 'gt_state';
+    if(isset($_GET[$state_grant_key]) && !empty($_GET[$state_grant_key])){
+        $gt_st_array = (strpos($_GET[$state_grant_key], ',') !== false )?explode (',', gt_clean($_GET[$state_grant_key])):gt_clean($_GET[$state_grant_key]);
+        $meta_query[] = array('key' => 'state_grants', 'value' => $gt_st_array, 'compare' => 'IN');
+    }
 }
 
 if(!empty($att_queries)){
