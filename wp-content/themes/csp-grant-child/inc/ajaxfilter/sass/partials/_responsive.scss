@@ -1,0 +1,57 @@
+//Responsive CSS
+@media only screen and (max-width: 1279px) {
+	.gt-filters-mini .gt-field{
+		@include flex-basis(24%);
+		&:nth-of-type(1),&:nth-last-child(1){
+		@include flex-basis(23%);
+		}
+		&:nth-child(4){
+			padding-right: 0;
+		}
+		&:nth-child(5){
+			padding-left: 0;
+		}
+	}	
+}
+
+@media only screen and (max-width: 768px) {
+	.gt-filters-mini .gt-field{
+		@include flex-basis(50%);
+		&:nth-of-type(1),&:nth-last-child(1){
+			@include flex-basis(100%);
+		}
+		&:nth-child(2), &:nth-child(4),  &:nth-child(6){
+			padding-left: 0;
+		}
+		&:nth-child(4){
+			padding-right: 5px;
+		}
+		&:nth-child(5){
+			padding-left: 5px;
+		}
+		&:nth-last-child(1){
+			padding-left: 0;
+		}
+	}
+	.gt-filters-adv1,.gt-filters-adv2,.gt-filters-adv3,.gt-filters-adv4 {
+		.gt-field{
+			@include flex-basis(50%);	
+			max-width: 50%;
+			&:nth-child(odd){
+				padding-left: 0;
+			}
+			&:nth-child(even){
+				padding-right: 0;
+			}
+		}
+	}	
+}
+@media only screen and (max-width: 357px) {
+	.gt-filters-mini,.gt-filters-adv1,.gt-filters-adv2,.gt-filters-adv3,.gt-filters-adv4 {
+		.gt-field{
+			@include flex-basis(100%);
+			max-width: 100%;
+			padding:5px 0;
+		}
+	}
+}

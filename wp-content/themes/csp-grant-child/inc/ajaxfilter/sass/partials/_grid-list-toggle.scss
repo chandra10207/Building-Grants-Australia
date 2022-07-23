@@ -1,0 +1,48 @@
+/*
+//Grid List Toggle
+@media (max-width: 575px) {
+ .gt-gridlist-toggle {
+  display:none
+ }
+}
+.gt-gridlist-toggle > a {
+	 display:inline-block;
+	 font-family:"Porto";
+	 font-size:1rem;
+	 width:1.2em;
+	 height:1.2em;
+	 	 font-size:1.5rem;
+	 width:1.5rem;
+	 height:1.5rem;
+	 line-height:1;
+	 text-decoration:none;
+	 text-align:center;
+	 vertical-align:middle;
+	 transition:.25s;
+	 margin-left: 10px;
+	
+}
+.gt-gridlist-toggle > a:not(.active) {
+ color:#000
+}
+.gt-gridlist-toggle #grid {
+ margin-right:0.25rem
+}
+.gt-gridlist-toggle #grid:before {
+ content:""
+}
+.gt-gridlist-toggle #list:before {
+ content:"\e80f"
+}
+*/
+
+/*
+//Load More Button
+.gt_load_more{
+	width:200px;
+	&.btn{
+		margin: 0 auto;
+		display: block;
+	}	
+}
+*/

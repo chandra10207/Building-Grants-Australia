@@ -1,0 +1,61 @@
+.gt-woocommerce-ajax-pagination{
+	text-align: right;
+	border-top: 1px solid #e7e7e7;
+	padding-top: 25px;
+	ul{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		@include flexbox();
+		@include justify-content(flex-end);
+		li{
+			@include inline-flex();
+			@include justify-content(center);
+			margin: 3px;
+			padding: 4px 8px;
+			background: var(--porto-skin-color);
+			color: var(--porto-secondary-color);
+			width:36px;
+			height:36px;
+			border:1px solid var(--porto-skin-color);
+			font-weight: 600;
+			&:first-child,&:last-child{
+				position: relative;
+				padding:4px 20px;
+				width:110px;
+				i{
+					position: absolute;
+					top:5px;
+					font-size: 22px;
+				}
+			}
+			&:first-child{
+				padding-left: 30px;
+				i{
+					left:10px;
+				}
+			}
+			&:last-child{
+				padding-right:20px;
+				i{
+					right:10px;
+				}
+			}
+
+			&.active:hover{
+			cursor: pointer;
+		   border-color: var(--porto-secondary-color);
+		   background-color: var(--porto-secondary-color);
+		   color:#fff;
+			}
+			&.inactive{
+			display: none;
+			}
+			&.selected{
+			   border-color: var(--porto-tertiary-color);
+			   background-color: var(--porto-tertiary-color);
+			   color:#fff;
+			}
+		}
+	}
+}

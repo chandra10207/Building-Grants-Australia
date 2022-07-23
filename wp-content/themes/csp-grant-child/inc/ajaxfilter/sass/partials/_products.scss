@@ -1,0 +1,108 @@
+/*
+.gt-products ul, ul.gt-products {
+  margin: 0 0 1em;
+  padding: 0;
+  list-style: none outside;
+}
+ul.gt-products{
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+ul.gt-products:not(.owl-carousel) {
+	@include flexbox();
+	@include flex-wrap(wrap);
+}
+ul.gt-products li {
+  list-style: none outside;
+}
+ul.gt-products .product-col{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+ul.gt-products li.product-col {
+  margin-bottom: 1.4286em;
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+ul.gt-products li.product-default, ul.gt-products li.product-wq_onimage {
+  text-align: center;
+}
+ul.gt-products li.product-col .product-content {
+  padding-bottom: 1px;
+}
+ul.gt-products li.product-col .product-content {
+  position: relative;
+  padding: 0 10px 40px 10px;
+}
+ul.gt-products .category-list {
+  display: block;
+  font-size: .625rem;
+  opacity: .8;
+  text-transform: uppercase;
+  line-height: 1.7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ul.gt-products .category-list a {
+  text-decoration: none;
+}
+ul.gt-products .category-list a:not(:hover) {
+  color: inherit;
+}
+ul.products li.product-col .product-loop-title {
+  font-size: 1em;
+  text-decoration: none;
+}
+ul.gt-products li.product-col h3 {
+  font-size: .9375rem;
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: -.01em;
+  margin-bottom: .45rem;
+}
+ul.gt-products li.product-col .woocommerce-loop-product__title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ul.gt-products li.product-col .product-loop-title:hover, ul.gt-products li.product-col .product-loop-title:focus, ul.gt-products li.product-col .product-loop-title:hover h3, ul.gt-products li.product-col .product-loop-title:focus h3 {
+  color: #c9d52c;
+}
+ul.gt-products li.product-col .price {
+  display: block;
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+}
+ul.gt-products li.product-default .price {
+  margin-bottom: .875rem;
+}
+
+ul.gt-products li.product-col .product-content .wcfmmp_sold_by_container {
+  position: absolute;
+  top: -53px;
+  right: 0px;
+  background: rgba(245,245,245,0.8);
+  z-index: 2;
+  padding: 5px;
+}
+ul.gt-products li.product-col .product-content .wcfmmp_sold_by_container .wcfmmp_sold_by_wrapper a {
+  color: #141e27 !important;
+}
+*/
+
+
+
+
+/*
+.product-inner{
+	position: relative;
+}
+ul.products li.product-col .product-content{
+	position: inherit;
+}
+*/
